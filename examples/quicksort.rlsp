@@ -1,0 +1,15 @@
+(let filter (\ f xs
+  (let x (car xs)
+    (let y (cdr xs)
+      (if (= xs nil) nil
+        (if (f x) (cons x (filter f y))
+          (filter f y)))))))
+
+(let quickSort (\ xs
+  (let x (car xs)
+    (let y (cdr xs)
+      (if (= xs nil) nil
+        (cat (quickSort (filter (\ n (n <= x)) y))
+          (cat '(x) (quickSort (filter (\n (n > x)) y)))))))))
+
+(quickSort '(5 3 4 2 1))  ; Should produce '(1 2 3 4 5)
